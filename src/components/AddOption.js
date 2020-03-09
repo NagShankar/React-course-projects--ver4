@@ -17,6 +17,9 @@ class AddOption extends React.Component{
     addOption(e){
        
         e.preventDefault();
+        
+        //console.log(testingggggggg); //for source map testing
+        
         const option=e.target.elements.option.value.trim();//trimming out empty spaces
         const whatsTheOutput=this.props.addingOption(option);
         this.setState(()=>({error:whatsTheOutput}));
