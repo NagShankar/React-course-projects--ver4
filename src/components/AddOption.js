@@ -1,20 +1,25 @@
 import React from "react";
 
 class AddOption extends React.Component{
-    //using constructor here sine we're using props inside addOption method and we need to bind this
-    constructor(props){
-        super(props);
-        this.addOption=this.addOption.bind(this);
-        
-        //receiving error
-        this.state={
-            error:undefined   //by default its undefined, in other words false
-        }
-        
+    
+    state={
+       error:undefined  
     }
     
+    //using constructor here since we're using props inside addOption method and we need to bind this
+//    constructor(props){
+//        super(props);
+//        this.addOption=this.addOption.bind(this);
+//        
+//          //receiving error
+//                //        this.state={
+//                //            error:undefined   //by default its undefined, in other words false
+//                //        }
+//        
+//    }
+//    
 
-    addOption(e){
+    addOption = (e) => { //converted to arrow function syntax
        
         e.preventDefault();
         
@@ -28,7 +33,7 @@ class AddOption extends React.Component{
             e.target.elements.option.value='';//emptying the input box if there is no error like duplicate submit or no values
           }
          
-    }
+    };
     
     render(){
         

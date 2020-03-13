@@ -7,61 +7,34 @@ import Options from "./Options"; //OR ./Options.js
 
 class IndecisionApp extends React.Component{
     
-    constructor(props){
-        super(props);
-        this.handleDeleteOptions=this.handleDeleteOptions.bind(this);
-        this.selectRandomNum=this.selectRandomNum.bind(this);
-        this.handleAddOption=this.handleAddOption.bind(this);
-        this.handleSingleDeleteOption=this.handleSingleDeleteOption.bind(this);
-        
-       
-        this.state={
-             options:props.options
-           }
-        
-          }
     
-    componentDidMount(){
-        //use try catch for any wrong json format
-         try{
-            const getOptions=localStorage.getItem('allOptions');
-            const options=JSON.parse(getOptions);
-               if(options){
-                   this.setState(()=>({options}));
-                  } 
-         }catch(e){
-            //do nothing
-         }
+    state={
+        options:[]
     }
     
-    componentDidUpdate(prevProps,prevState){
-        if(prevState.options.length !== this.state.options.length){
-            const setOptions=JSON.stringify(this.state.options);
-            localStorage.setItem('allOptions',setOptions);
-            
-        }
-        
-    }
     
-        handleDeleteOptions(){
+    
+//    constructor(props){
+//        super(props);
+//        this.handleDeleteOptions=this.handleDeleteOptions.bind(this);
+//        this.selectRandomNum=this.selectRandomNum.bind(this);
+//        this.handleAddOption=this.handleAddOption.bind(this);
+//        this.handleSingleDeleteOption=this.handleSingleDeleteOption.bind(this);
+//        
+//       
+//        this.state={
+//             options:props.options
+//           }
+//        
+//          }
+
+ handleDeleteOptions = () => {
             this.setState(()=>({ 
                 options:[] 
             }));
-        }
-    
-      //delete single option
-      handleSingleDeleteOption(optionToDelete){
-        
-          this.setState((prevState)=>({
-              options:prevState.options.filter((option)=>{
-                  return optionToDelete !== option //filter methods returns new array with the values which satisfies the condition to true, here prevState.options array's option SHOULD NOT match with option(optionToDelete) we want to delete, this is the condition, if this condition evaluates to true then add that item in returning array
-                  
-              })
-          }));
-          
-      }
-      
-        handleAddOption(option){
+        };
+ 
+   handleAddOption = (option) => {
             //validation
             if(!option){ //if option doesnt exist
                 return 'Please add something :('
@@ -84,13 +57,51 @@ class IndecisionApp extends React.Component{
       
              }
     
-        }
-    
-       selectRandomNum(){
+        };
+   
+    //delete single option
+      handleSingleDeleteOption = (optionToDelete) => {
+        
+          this.setState((prevState)=>({
+              options:prevState.options.filter((option)=>{
+                  return optionToDelete !== option //filter methods returns new array with the values which satisfies the condition to true, here prevState.options array's option SHOULD NOT match with option(optionToDelete) we want to delete, this is the condition, if this condition evaluates to true then add that item in returning array
+                  
+              })
+          }));
+          
+      };
+      
+       
+       selectRandomNum = () => {
            const randomNum=Math.floor(Math.random() * this.state.options.length);
            alert (randomNum + " " +this.state.options[randomNum]);
            
-       }
+       };
+    
+    
+    componentDidMount(){
+        //use try catch for any wrong json format
+         try{
+            const getOptions=localStorage.getItem('allOptions');
+            const options=JSON.parse(getOptions);
+               if(options){
+                   this.setState(()=>({options}));
+                  } 
+         }catch(e){
+            //do nothing
+         }
+    };
+    
+    componentDidUpdate(prevProps,prevState){
+        if(prevState.options.length !== this.state.options.length){
+            const setOptions=JSON.stringify(this.state.options);
+            localStorage.setItem('allOptions',setOptions);
+            
+        }
+        
+    };
+    
+   
   
     render(){
         //const titleText='Indicision App'; //now set as default prop
@@ -118,8 +129,8 @@ class IndecisionApp extends React.Component{
 }
 
 //default empty options array
-IndecisionApp.defaultProps={
-    options:[]
-}
+//IndecisionApp.defaultProps={
+//    options:[]
+//}
 
 export default IndecisionApp;
